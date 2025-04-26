@@ -49,13 +49,20 @@
       display: none;
       margin-top: 1rem;
     }
+    .fade-in {
+      animation: fadeIn 2s forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
   </style>
 </head>
 <body>
   <div id="container">
     <h1>Enter the code:</h1>
     <input type="text" id="codeInput" placeholder="Enter numbers...">
-    <button onclick="checkCode()">Go</button>
+    <button id="goButton" onclick="checkCode()">Go</button>
 
     <div id="message"></div>
     <button id="revealButton" onclick="revealCoordinates()">Reveal the coordinates</button>
@@ -68,23 +75,28 @@
       const correctCode = "401313811137255";
       const message = document.getElementById('message');
       const revealButton = document.getElementById('revealButton');
-    
+
       if (input === correctCode) {
         document.getElementById('codeInput').style.display = 'none';
         document.getElementById('goButton').style.display = 'none';
+        document.querySelector('h1').style.display = 'none';
         message.innerText = "Congratulations! You solved the puzzle. Are you ready to see your destination?";
+        message.style.color = "white";
         message.style.display = 'block';
         revealButton.style.display = 'block';
       } else {
         message.innerText = "Incorrect code. Please try again.";
+        message.style.color = "red";
         message.style.display = 'block';
       }
     }
 
-
     function revealCoordinates() {
-      document.getElementById('coordinates').style.display = 'block';
+      const coordinates = document.getElementById('coordinates');
+      coordinates.style.display = 'block';
+      coordinates.classList.add('fade-in');
       document.getElementById('revealButton').style.display = 'none';
+      document.getElementById('message').style.display = 'none';
     }
   </script>
 </body>
